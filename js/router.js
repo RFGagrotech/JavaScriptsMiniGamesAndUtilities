@@ -14,7 +14,7 @@ let navigationId = 0;
 export async function router() {
     // Seleccionamos el elemento HTML con id="app".
     // Será el contenedor donde mostraremos los ejercicios.
-    const app = document.querySelector("#app");
+    const app = document.querySelector("app");
     // Obtenemos la ruta indicada después del símbolo "#".
     // slice(1) elimina el "#".
     // Si no existe una ruta, utilizamos "/" como valor predeterminado.
