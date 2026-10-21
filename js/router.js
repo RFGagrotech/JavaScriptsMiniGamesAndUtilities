@@ -5,7 +5,7 @@
 ========================================= */
 // Importamos el objeto "excercises" desde exercises.js.
 // Este objeto relaciona cada ruta con una función de carga.
-import { excercises } from "./exercises.js";
+import { exercises } from "./exercises.js";
 // Contador global para identificar cada navegación.
 // Permite descartar cargas antiguas si cambiamos de ruta rápidamente.
 let navigationId = 0;
@@ -14,19 +14,19 @@ let navigationId = 0;
 export async function router() {
     // Seleccionamos el elemento HTML con id="app".
     // Será el contenedor donde mostraremos los ejercicios.
-    const app = document.querySelector("app");
+    const app = document.querySelector("#app");
     // Obtenemos la ruta indicada después del símbolo "#".
     // slice(1) elimina el "#".
     // Si no existe una ruta, utilizamos "/" como valor predeterminado.
     const path = location.hash.slice(1) || "/";
     // Buscamos en "excercises" la función de carga
     // correspondiente a la ruta actual.
-    const loadExcercise = excercises[path];
+    const loadExercise = exercises[path];
     // Incrementamos el contador global en 1.
     // Guardamos su valor para identificar esta navegación.
     const currentId = ++navigationId;
     // Si no encontramos una función asociada a la ruta...
-    if (!loadExcercise) {
+    if (!loadExercise) {
         // Mostramos el contenido predeterminado en #app.
         // innerHTML interpreta las etiquetas como HTML.
         app.innerHTML = `
@@ -52,7 +52,7 @@ export async function router() {
         // Ejecutamos la función de carga del ejercicio.
         // await espera su resultado, que debe ser una
         // función encargada de renderizar el ejercicio.
-        const render = await loadExcercise();
+        const render = await loadExercise();
         // Comprobamos si esta navegación sigue siendo la actual.
         // Si el usuario ya cambió de ruta, dejamos de ejecutarla.
         if (currentId !== navigationId) return;

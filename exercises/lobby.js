@@ -55,7 +55,6 @@ function changeColor() {
         const g = Math.floor(Math.random() * 256);
         const b = Math.floor(Math.random() * 256);
 
-        document.body.style.background = `
-        rgb = (${r}, ${g}, ${b})`;           //Probar con linear-gradient 135deg y 2 rgb
+        document.body.style.background = `rgb(${r}, ${g}, ${b})`;    //Probar con linear-gradient 135deg y 2 rgb
     });
 }
