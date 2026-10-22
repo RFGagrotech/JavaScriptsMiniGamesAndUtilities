@@ -32,12 +32,6 @@ export async function router() {
         app.innerHTML = `
             <h1 class="title">Elige un Minijuego/utilidad para probarla</h1>
             <p>Don't be shy</p>
-            <button class="btn" id="change">Change background</button>
-            <br></br>
-            <p id="counter"></p>
-            <button class="btn" id="plus">+</button>
-            <button class="btn" id="minus">-</button>
-            <button class="btn" id="reset">Reset</button>
         `;
         // Finalizamos la ejecución del router.
         // No intentamos cargar ningún ejercicio.
