@@ -1,36 +1,37 @@
+
 export function calculator() {
     const app = document.querySelector("#app");
 
     app.innerHTML = `
-    <h1>Calculator</h1>
+        <h1>Calculator</h1>
 
-    <input type="text" id="pantalla" disabled>
+        <input type="text" id="pantalla" disabled>
 
-    <br>
+        <br>
 
-    <button class="numero" data-value="7">7</button>
-    <button class="numero" data-value="8">8</button>
-    <button class="numero" data-value="9">9</button>
+        <button class="numero" data-value="7">7</button>
+        <button class="numero" data-value="8">8</button>
+        <button class="numero" data-value="9">9</button>
 
-    <br>
+        <br>
 
-    <button class="numero" data-value="4">4</button>
-    <button class="numero" data-value="5">5</button>
-    <button class="numero" data-value="6">6</button>
+        <button class="numero" data-value="4">4</button>
+        <button class="numero" data-value="5">5</button>
+        <button class="numero" data-value="6">6</button>
 
-    <br>
+        <br>
 
-    <button class="numero" data-value="1">1</button>
-    <button class="numero" data-value="2">2</button>
-    <button class="numero" data-value="3">3</button>
+        <button class="numero" data-value="1">1</button>
+        <button class="numero" data-value="2">2</button>
+        <button class="numero" data-value="3">3</button>
 
-    <br>
+        <br>
 
-    <button class="numero" data-value="0">0</button>
-    <button id="sumar">+</button>
-    <button id="restar">-</button>
-    <button id="igual">=</button>
-    <button id="limpiar">C</button>
+        <button class="numero" data-value="0">0</button>
+        <button id="sumar">+</button>
+        <button id="restar">-</button>
+        <button id="igual">=</button>
+        <button id="limpiar">C</button>
     `;
 
     const pantalla = document.getElementById("pantalla");
@@ -41,58 +42,87 @@ export function calculator() {
     const btnIgual = document.getElementById("igual");
     const btnLimpiar = document.getElementById("limpiar");
 
-    let numeroAnterior = null;
-    let operador = null;
-
     let operaciones = [];
     let numeroActual = "";
+    let resultadoMostrado = false;
 
+    // 1. Actualizar la pantalla
+    function actualizarPantalla() {
+        pantalla.value = [...operaciones, numeroActual]
+            .filter(valor => valor !== "")
+            .join(" ");
+    }
+
+    // 2. Guardar números
     botonesNumeros.forEach((boton) => {
         boton.addEventListener("click", () => {
+
+            if (resultadoMostrado) {
+                numeroActual = "";
+                resultadoMostrado = false;
+            }
+
             numeroActual += boton.dataset.value;
-            pantalla.value = numeroActual;
+            actualizarPantalla();
         });
     });
 
-    btnIgual.addEventListener("click", () => {
-    if (numeroActual === "") return;
+    // 3. Guardar operadores
+    function guardarOperacion(simbolo) {
 
-    operaciones.push(Number(numeroActual));
+        if (numeroActual !== "") {
+            operaciones.push(Number(numeroActual));
+            numeroActual = "";
+        }
 
-    let resultado = operaciones[0];
+        if (operaciones.length === 0) return;
 
-    for (let i = 1; i < operaciones.length; i += 2) {
-      const operador = operaciones[i];
-      const numero = operaciones[i + 1];
+        // Si ya existe un operador al final, sustituirlo
+        if (typeof operaciones[operaciones.length - 1] === "string") {
+            operaciones[operaciones.length - 1] = simbolo;
+        } else {
+            operaciones.push(simbolo);
+        }
 
-      if (operador === "+") {
-        resultado += numero;
-      } else if (operador === "-") {
-        resultado -= numero;
-      }
+        resultadoMostrado = false;
+        actualizarPantalla();
     }
 
-    pantalla.value = resultado;
+    btnSumar.addEventListener("click", () => guardarOperacion("+"));
+    btnRestar.addEventListener("click", () => guardarOperacion("-"));
 
-    operaciones = [];
-    numeroActual = String(resultado);
-    });
+    // 4. Calcular resultado
+    btnIgual.addEventListener("click", () => {
 
-    btnLimpiar.addEventListener("click", () => {
-        pantalla.value = "";
-        numeroAnterior = null;
-        operador = null;
-    });
-}
-
-    function guardarOperacion(simbolo) {
         if (numeroActual === "") return;
 
         operaciones.push(Number(numeroActual));
-        operaciones.push(simbolo);
 
+        let resultado = operaciones[0];
+
+        for (let i = 1; i < operaciones.length; i += 2) {
+            const operador = operaciones[i];
+            const numero = operaciones[i + 1];
+
+            if (operador === "+") {
+                resultado += numero;
+            } else if (operador === "-") {
+                resultado -= numero;
+            }
+        }
+
+        pantalla.value = resultado;
+
+        operaciones = [];
+        numeroActual = String(resultado);
+        resultadoMostrado = true;
+    });
+
+    // 5. Limpiar calculadora
+    btnLimpiar.addEventListener("click", () => {
+        operaciones = [];
         numeroActual = "";
-
-        btnSumar.addEventListener("click", () => guardarOperacion("+"));
-        btnRestar.addEventListener("click", () => guardarOperacion("-")); //Hay que añadir X y /
-    }
+        resultadoMostrado = false;
+        pantalla.value = "";
+    });
+}
