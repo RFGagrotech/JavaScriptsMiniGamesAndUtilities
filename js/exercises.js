@@ -7,6 +7,8 @@ export const exercises = {
         import("../exercises/formvalidation.js").then(m=>m.render),
     "/exercises/apiweather": () =>
         import("../exercises/apiweather.js").then(m=>m.render),
-    "/exercises/formvalidation": () =>
-        import ("../exercises/formvalidation.js").then(m=>m.render),
+    "/exercises/randomnumber": () =>
+        import("../exercises/randomnumber.js").then(m=>m.randomNumber),
+    "/exercises/todolist": () =>
+        import("../exercises/to-dolist.js").then(m=>m.render),
 };

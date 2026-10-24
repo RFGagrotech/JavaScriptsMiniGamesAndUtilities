@@ -1,6 +1,5 @@
-
-export function render(app) {
-
+export function render() {
+  const app = document.querySelector("#app");
   // 1. ESTRUCTURA HTML
   app.innerHTML = `
     <section class="todo-app">
