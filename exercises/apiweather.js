@@ -8,7 +8,7 @@ export function render(app) {
           id="city"
           type="text"
           placeholder="Introduce una localidad"
-          value="Garachico"
+          value="Icod de los Vinos"
           required
         >
         <button type="submit">Buscar</button>

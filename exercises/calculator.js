@@ -126,3 +126,6 @@ export function calculator() {
         pantalla.value = "";
     });
 }
+
+
+//Falta añadir multiplicacion y divicion, ademas de que no esta hecha para numeros negativos. 
