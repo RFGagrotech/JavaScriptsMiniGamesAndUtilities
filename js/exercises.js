@@ -9,6 +9,6 @@ export const exercises = {
         import("../exercises/apiweather.js").then(m=>m.render),
     "/exercises/randomnumber": () =>
         import("../exercises/randomnumber.js").then(m=>m.randomNumber),
-    "/exercises/todolist": () =>
+    "/exercises/to-dolist": () =>
         import("../exercises/to-dolist.js").then(m=>m.render),
 };
